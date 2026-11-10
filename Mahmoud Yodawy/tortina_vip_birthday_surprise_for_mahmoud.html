@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="https://tortina.shop/assets/images/tortina-logo-fnl-3.png" type="image/x-icon">
+  <title>Tortina Shop | هدية عيد ميلاد محمود - 11 نوفمبر</title>
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Pacifico&family=Cairo:wght@400;600;700;800;900&display=swap">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --tortina-gold: #d49b35;
+      --tortina-cream: #fdf8ee;
+      --tortina-dark: #1b1410;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: radial-gradient(circle at top, #2a1d15 0%, #120c08 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .en-font {
+      font-family: 'Jost', sans-serif;
+      direction: ltr;
+    }
+
+    .pacifico-font {
+      font-family: 'Pacifico', cursive;
+    }
+
+    /* Tortina Header */
+    .tortina-navbar {
+      background: #ffffff;
+      border-bottom: 3px solid var(--tortina-gold);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    /* 3D Cardboard Cake Box Animation */
+    .cake-box-wrapper {
+      cursor: pointer;
+      transition: transform 0.35s ease;
+      animation: floatBox 3s ease-in-out infinite;
+    }
+
+    .cake-box-wrapper:hover {
+      transform: scale(1.04);
+    }
+
+    @keyframes floatBox {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .box-lid-group {
+      transform-origin: center top;
+      transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    }
+
+    .cake-box-wrapper.opening .box-lid-group {
+      transform: translateY(-130px) rotate(-12deg) scale(1.08);
+      opacity: 0;
+    }
+
+    .cake-box-wrapper.opening {
+      animation: none;
+      transform: scale(0.92);
+      opacity: 0;
+      transition: transform 0.65s ease 0.25s, opacity 0.55s ease 0.25s;
+      pointer-events: none;
+    }
+
+    /* Pulse Call-To-Action Tag on Box */
+    .gift-cta-badge {
+      background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%);
+      color: #1b120c;
+      box-shadow: 0 0 0 0 rgba(255, 183, 3, 0.75);
+      animation: pulseBadge 1.8s infinite;
+    }
+
+    @keyframes pulseBadge {
+      0% { box-shadow: 0 0 0 0 rgba(255, 183, 3, 0.75); }
+      70% { box-shadow: 0 0 0 18px rgba(255, 183, 3, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 183, 3, 0); }
+    }
+
+    /* Revealed Surprise Container */
+    #surpriseSection {
+      display: none;
+      opacity: 0;
+      transform: translateY(25px) scale(0.96);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #surpriseSection.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Top-Down / Angled Mango Cake Styling */
+    .cake-plate {
+      position: relative;
+      width: 310px;
+      height: 310px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 62%, #e5e7eb 100%);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(255, 183, 3, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    @media (min-width: 640px) {
+      .cake-plate {
+        width: 350px;
+        height: 350px;
+      }
+    }
+
+    .mango-sponge-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffedd5 0%, #ffb703 55%, #ea580c 100%);
+      border: 7px solid #fffbeb;
+      box-shadow: inset 0 0 25px rgba(180, 83, 9, 0.55), 0 8px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Whipped Cream & Mango Chunks Ring */
+    .mango-piping-ring {
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      border: 8px dotted #fffdf7;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
+    }
+
+    /* Edible Photo Frame on Top of the Cake */
+    .cake-photo-topper {
+      position: relative;
+      width: 195px;
+      height: 195px;
+      border-radius: 50%;
+      padding: 7px;
+      background: conic-gradient(#fffbeb, #fde68a, #ffb703, #fffbeb, #ffb703, #fffbeb);
+      box-shadow: 0 6px 20px rgba(120, 53, 15, 0.55);
+      z-index: 10;
+    }
+
+    @media (min-width: 640px) {
+      .cake-photo-topper {
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    .cake-photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      background: #27170c;
+      border: 4px solid #ffffff;
+    }
+
+    .cake-photo-inner img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s ease, object-position 0.4s ease;
+    }
+
+    /* Decorative Mango Slices around the photo */
+    .mango-slice-decor {
+      position: absolute;
+      width: 34px;
+      height: 20px;
+      background: linear-gradient(135deg, #ffd166 0%, #ffb703 55%, #fb8500 100%);
+      border-radius: 20px 20px 6px 20px;
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+      z-index: 12;
+    }
+
+    /* Candles on top of the cake */
+    .candles-row {
+      position: absolute;
+      top: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 24px;
+      z-index: 30;
+    }
+
+    .candle-stick {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .candle-flame {
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(ellipse at bottom, #fff3b0 15%, #ffb703 55%, #ef4444 95%);
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 16px #ffb703, 0 0 28px #fb8500;
+      animation: flameFlicker 0.55s infinite alternate ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    .candle-flame.out {
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.25s ease;
+    }
+
+    .candle-body {
+      width: 12px;
+      height: 36px;
+      background: repeating-linear-gradient(
+        45deg,
+        #ffffff,
+        #ffffff 5px,
+        #f59e0b 5px,
+        #f59e0b 10px
+      );
+      border-radius: 4px;
+      border: 1px solid #b45309;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+    }
+
+    @keyframes flameFlicker {
+      0% { transform: scale(1) rotate(-3deg); }
+      100% { transform: scale(1.1, 0.93) rotate(3deg); }
+    }
+
+    /* Chocolate Plaque on Bottom of Cake */
+    .chocolate-plaque {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #2d1606 0%, #180b03 100%);
+      border: 2px solid #ffb703;
+      color: #fde68a;
+      padding: 3px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
+      z-index: 20;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.55);
+    }
+
+    /* Royal Birthday Telegram Card */
+    .telegram-card {
+      background: linear-gradient(145deg, #fffdf9 0%, #fef5e7 100%);
+      color: #24170d;
+      border: 3px solid #d49b35;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 0 4px rgba(212, 155, 53, 0.2);
+      position: relative;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Overlay Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Authentic Tortina Shop Header -->
+  <header class="tortina-navbar py-3 px-4 md:px-10">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <!-- Navigation Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-6 en-font text-sm font-semibold text-gray-800">
+        <a href="#home" onclick="return false;" class="hover:text-amber-600 transition">Home</a>
+        <a href="#order" onclick="return false;" class="hover:text-amber-600 transition">Order Now</a>
+        <a href="#branches" onclick="return false;" class="hover:text-amber-600 transition">Our Branches</a>
+        <a href="#contact" onclick="return false;" class="hover:text-amber-600 transition">Contact Us</a>
+      </nav>
+
+      <!-- Tortina Logo -->
+      <div class="flex items-center gap-3">
+        <img
+          src="https://tortina.shop/assets/images/tortina-logo-fnl-3.png"
+          alt="Tortina Shop"
+          class="h-14 md:h-16 w-auto object-contain"
+          onerror="this.onerror=null;this.style.display='none';document.getElementById('fallbackLogoText').classList.remove('hidden');"
+        >
+        <span id="fallbackLogoText" class="hidden pacifico-font text-2xl md:text-3xl text-amber-700">Tortina Shop</span>
+      </div>
+
+      <!-- Birthday Date Badge -->
+      <div class="flex items-center gap-2">
+        <span class="bg-amber-100 text-amber-900 border border-amber-400 px-3 py-1 rounded-full text-xs md:text-sm font-extrabold">
+          🎂 11 نوفمبر • عيد ميلاد محمود
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative">
+
+    <!-- STEP 1: THE CLOSED TORTINA CAKE BOX -->
+    <div id="closedBoxSection" class="text-center max-w-lg mx-auto my-auto">
+      <p class="en-font pacifico-font text-amber-400 text-2xl md:text-3xl mb-1">Welcome to Tortina Shop</p>
+      <h1 class="text-2xl md:text-4xl font-black text-white mb-2">
+        وصلتلك علبة تورتة مخصوص يا <span class="text-amber-400">محمود</span>! 🎉
+      </h1>
+      <p class="text-gray-300 text-sm md:text-base mb-6">
+        بمناسبة عيد ميلادك النهاردة <strong class="text-amber-300">11 نوفمبر</strong>.. دوس على العلبة عشان تفتح هديتك 👇
+      </p>
+
+      <!-- Interactive 3D Cardboard Cake Box SVG -->
+      <div id="cakeBoxTrigger" onclick="openCakeBox()" class="cake-box-wrapper inline-block select-none" role="button" aria-label="افتح علبة التورتة">
+        <svg viewBox="0 0 360 310" class="w-72 sm:w-80 md:w-96 h-auto mx-auto drop-shadow-2xl">
+          <!-- Box Shadow -->
+          <ellipse cx="180" cy="285" rx="135" ry="18" fill="rgba(0,0,0,0.55)" />
+
+          <!-- Cardboard Box Base -->
+          <g class="box-base-group">
+            <!-- Front/Side panels -->
+            <rect x="45" y="115" width="270" height="155" rx="12" fill="#fdf6e9" stroke="#d49b35" stroke-width="3.5" />
+            <!-- Subtle cardboard side shading -->
+            <path d="M45 127 Q45 115 57 115 L95 115 L95 270 L57 270 Q45 270 45 258 Z" fill="#f5e8ce" />
+            <!-- Gold bottom trim -->
+            <rect x="45" y="252" width="270" height="18" rx="6" fill="#d49b35" />
+
+            <!-- Vertical Gold Satin Ribbon on Base -->
+            <rect x="164" y="115" width="32" height="155" fill="#ffb703" stroke="#b45309" stroke-width="1.5" />
+            <rect x="175" y="115" width="10" height="155" fill="#fde68a" opacity="0.6" />
+
+            <!-- Tortina Brand Seal on Box Front -->
+            <rect x="92" y="152" width="176" height="76" rx="14" fill="#1b1410" stroke="#ffb703" stroke-width="2.5" />
+            <text x="180" y="182" text-anchor="middle" fill="#ffb703" font-size="20" font-family="Pacifico, cursive">Tortina Shop</text>
+            <text x="180" y="208" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="bold" font-family="Cairo, sans-serif">هدية خاصة لمحمود • 11 نوفمبر</text>
+          </g>
+
+          <!-- Cardboard Box Lid + Ribbon Bow (Animates up on click) -->
+          <g class="box-lid-group">
+            <!-- Top Ribbon Bow Loops -->
+            <path d="M180 68 C135 20, 105 55, 165 76 Z" fill="#ffb703" stroke="#b45309" stroke-width="2" />
+            <path d="M180 68 C225 20, 255 55, 195 76 Z" fill="#ffb703" stroke="#b45309" stroke-width="2" />
+            <!-- Ribbon tails -->
+            <path d="M170 72 L145 96 L160 98 L178 76 Z" fill="#fb8500" />
+            <path d="M190 72 L215 96 L200 98 L182 76 Z" fill="#fb8500" />
+            <!-- Bow Center Knot -->
+            <ellipse cx="180" cy="70" rx="14" ry="11" fill="#ffd166" stroke="#b45309" stroke-width="2" />
+
+            <!-- Box Lid -->
+            <rect x="35" y="74" width="290" height="46" rx="10" fill="#fffaf0" stroke="#d49b35" stroke-width="3.5" />
+            <rect x="35" y="108" width="290" height="12" rx="4" fill="#e9d5b0" />
+            <!-- Lid Ribbon Center -->
+            <rect x="164" y="74" width="32" height="46" fill="#ffb703" stroke="#b45309" stroke-width="1.5" />
+          </g>
+        </svg>
+
+        <!-- Call to Action Button on Box -->
+        <div class="mt-2">
+          <span class="gift-cta-badge inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-base md:text-xl font-black cursor-pointer">
+            <span>🎁</span>
+            <span>هديتك هنا يا محمود.. اضغط لفتح العلبة</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: REVEALED MANGO PHOTO CAKE + BIRTHDAY TELEGRAM -->
+    <div id="surpriseSection" class="w-full max-w-2xl mx-auto">
+
+      <!-- A) THE MANGO CAKE WITH MAHMOUD'S CHOSEN PHOTO -->
+      <div class="text-center mb-8 mt-4">
+        <div class="cake-plate cursor-pointer" onclick="blowAllCandles()" title="اضغط لإطفاء الشموع">
+          <!-- 3 Interactive Candles on Top Rim -->
+          <div class="candles-row" title="اضغط لإطفاء الشموع">
+            <div class="candle-stick" onclick="event.stopPropagation(); blowCandle(0)">
+              <div id="flame-0" class="candle-flame"></div>
+              <div class="candle-body"></div>
+            </div>
+            <div class="candle-stick" onclick="event.stopPropagation(); blowCandle(1)">
+              <div id="flame-1" class="candle-flame"></div>
+              <div class="candle-body"></div>
+            </div>
+            <div class="candle-stick" onclick="event.stopPropagation(); blowCandle(2)">
+              <div id="flame-2" class="candle-flame"></div>
+              <div class="candle-body"></div>
+            </div>
+          </div>
+
+          <!-- Mango Cake Sponge & Cream Border -->
+          <div class="mango-sponge-body">
+            <div class="mango-piping-ring"></div>
+
+            <!-- Decorative Mango Slices Around Cake Topper -->
+            <div class="mango-slice-decor" style="top: 14px; left: 50%; transform: translateX(-50%) rotate(8deg);"></div>
+            <div class="mango-slice-decor" style="top: 42px; right: 26px; transform: rotate(52deg);"></div>
+            <div class="mango-slice-decor" style="bottom: 42px; right: 26px; transform: rotate(125deg);"></div>
+            <div class="mango-slice-decor" style="top: 42px; left: 26px; transform: rotate(-52deg);"></div>
+            <div class="mango-slice-decor" style="bottom: 42px; left: 26px; transform: rotate(-125deg);"></div>
+
+            <!-- Center Circular Edible Photo of Mahmoud -->
+            <div class="cake-photo-topper">
+              <div class="cake-photo-inner">
+                <img
+                  id="mahmoudCakeImg"
+                  src="20261007_193137_2.jpg"
+                  alt="محمود"
+                  style="object-fit: cover; object-position: center 28%; transform: scale(1.12);"
+                  onerror="handleImageFallback(this)"
+                >
+              </div>
+            </div>
+
+            <!-- Chocolate Birthday Plaque -->
+            <div class="chocolate-plaque">
+              Happy Birthday Mahmoud • 11 Nov 🎂
+            </div>
+          </div>
+        </div>
+
+        <!-- Blow Candles Button & Status -->
+        <div class="mt-5">
+          <button id="blowCandlesBtn" onclick="blowAllCandles()" class="bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-black font-black text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg transition transform hover:scale-105">
+            💨 اطفي الشمع يا حودة واتمنى أمنية!
+          </button>
+          <p id="wishMessage" class="hidden text-amber-300 font-bold text-sm sm:text-base mt-2 animate-bounce">
+            ✨ سنة حلوة يا جميل! عقبال 100 سنة سعادة ونجاح يا حودة ✨
+          </p>
+        </div>
+      </div>
+
+      <!-- B) THE BIRTHDAY TELEGRAM (برقية تهنئة خاصة من الشلة) -->
+      <div class="telegram-card rounded-3xl p-6 sm:p-8 md:p-10 text-center">
+        <div class="inline-block bg-amber-900 text-amber-200 text-xs sm:text-sm font-extrabold px-4 py-1.5 rounded-full mb-4 shadow">
+          💌 برقية تهنئة خاصة من الشلة
+        </div>
+
+        <div class="space-y-4 text-lg sm:text-xl md:text-2xl leading-relaxed text-amber-950 font-extrabold max-w-xl mx-auto">
+          <p>
+            محمود الصاحب الجدع، صاحب صاحبه.. عنوان الأدب والأخلاق والجدعنة وخفة الدم ❤️
+          </p>
+          <p class="bg-amber-100/90 border border-amber-400 rounded-2xl p-4 text-amber-900 shadow-inner">
+            كل سنة وأنت طيب يا حودة، وربنا يبارك في عمرك وصحتك، وتفتح الشركة الكبيرة اللي نفسك فيها قريب.. وتنزلنا الزيادة بتاعتنا أول بأول! 😂💸🎂
+          </p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-amber-800/20 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-extrabold text-amber-900">
+          <button id="musicBtn" onclick="toggleMusic()" class="bg-amber-900/10 hover:bg-amber-900/20 text-amber-950 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5">
+            <span id="musicIcon">🔊</span>
+            <span id="musicLabel">إيقاف / تشغيل الموسيقى</span>
+          </button>
+          <button onclick="resetBoxView()" class="text-amber-800 hover:text-black underline cursor-pointer">
+            إعادة فتح المفاجأة 🎁
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Simple Tortina Footer -->
+  <footer class="py-4 text-center text-xs sm:text-sm text-gray-400 border-t border-white/10 en-font">
+    © Copyrights 2026 Tortina.shop Right Reserved — Special Birthday Edition for Mahmoud
+  </footer>
+
+  <script>
+    let candlesState = [true, true, true];
+    let audioCtx = null;
+    let isPlayingMusic = false;
+    let melodyTimers = [];
+    let confettiParticles = [];
+    let confettiFrame = null;
+
+    // Open the Cardboard Cake Box
+    function openCakeBox() {
+      const boxTrigger = document.getElementById('cakeBoxTrigger');
+      const closedSection = document.getElementById('closedBoxSection');
+      const surpriseSection = document.getElementById('surpriseSection');
+
+      boxTrigger.classList.add('opening');
+      launchConfetti(130);
+      playHappyBirthdaySong();
+
+      setTimeout(() => {
+        closedSection.classList.add('hidden');
+        surpriseSection.classList.add('visible');
+      }, 650);
+    }
+
+    // Replay the Box Opening Animation
+    function resetBoxView() {
+      const boxTrigger = document.getElementById('cakeBoxTrigger');
+      const closedSection = document.getElementById('closedBoxSection');
+      const surpriseSection = document.getElementById('surpriseSection');
+
+      surpriseSection.classList.remove('visible');
+      closedSection.classList.remove('hidden');
+      boxTrigger.classList.remove('opening');
+
+      // Relight candles
+      candlesState = [true, true, true];
+      for (let i = 0; i < 3; i++) {
+        const fl = document.getElementById('flame-' + i);
+        if (fl) fl.classList.remove('out');
+      }
+      document.getElementById('wishMessage').classList.add('hidden');
+      document.getElementById('blowCandlesBtn').classList.remove('hidden');
+    }
+
+    // Fallback handler if image filename is slightly different
+    function handleImageFallback(imgEl) {
+      if (!imgEl.dataset.triedAlt) {
+        imgEl.dataset.triedAlt = 'true';
+        imgEl.src = '20261007_193137.jpg';
+        return;
+      }
+      // SVG illustrated portrait fallback of Mahmoud with glasses, beard & thumbs up
+      const svgFallback = `data:image/svg+xml;utf8,` + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <rect width="200" height="200" fill="#fffbeb"/>
+          <circle cx="100" cy="100" r="92" fill="#fde68a"/>
+          <path d="M48 82 C45 38, 155 38, 152 82 C145 58, 55 58, 48 82 Z" fill="#1f1916"/>
+          <circle cx="72" cy="48" r="14" fill="#1f1916"/>
+          <circle cx="100" cy="44" r="16" fill="#1f1916"/>
+          <circle cx="128" cy="48" r="14" fill="#1f1916"/>
+          <ellipse cx="100" cy="106" rx="46" ry="52" fill="#f3c69f"/>
+          <path d="M54 108 C54 156, 146 156, 146 108 C140 128, 125 138, 100 138 C75 138, 60 128, 54 108 Z" fill="#261e1b"/>
+          <path d="M74 122 Q100 112 126 122 Q100 130 74 122 Z" fill="#1f1916"/>
+          <path d="M82 124 Q100 136 118 124" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <rect x="62" y="82" width="32" height="24" rx="8" fill="none" stroke="#374151" stroke-width="3.5"/>
+          <rect x="106" y="82" width="32" height="24" rx="8" fill="none" stroke="#374151" stroke-width="3.5"/>
+          <line x1="94" y1="92" x2="106" y2="92" stroke="#374151" stroke-width="3.5"/>
+          <circle cx="78" cy="94" r="4" fill="#1f1916"/>
+          <circle cx="122" cy="94" r="4" fill="#1f1916"/>
+        </svg>
+      `);
+      imgEl.src = svgFallback;
+      imgEl.style.objectPosition = 'center center';
+      imgEl.style.transform = 'scale(1)';
+    }
+
+    // Blow out individual candle
+    function blowCandle(idx) {
+      if (!candlesState[idx]) return;
+      candlesState[idx] = false;
+      const flame = document.getElementById('flame-' + idx);
+      if (flame) flame.classList.add('out');
+      playPopNote(340 + idx * 70);
+
+      if (candlesState.every(c => !c)) {
+        document.getElementById('wishMessage').classList.remove('hidden');
+        document.getElementById('blowCandlesBtn').classList.add('hidden');
+        launchConfetti(150);
+      }
+    }
+
+    function blowAllCandles() {
+      [0, 1, 2].forEach((idx, i) => {
+        setTimeout(() => blowCandle(idx), i * 140);
+      });
+    }
+
+    function playPopNote(freq) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.16);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.16);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.17);
+      } catch (e) {}
+    }
+
+    // Web Audio Happy Birthday Melody
+    function toggleMusic() {
+      if (isPlayingMusic) {
+        stopMusic();
+      } else {
+        playHappyBirthdaySong();
+      }
+    }
+
+    function stopMusic() {
+      isPlayingMusic = false;
+      melodyTimers.forEach(t => clearTimeout(t));
+      melodyTimers = [];
+      document.getElementById('musicIcon').textContent = '🔇';
+      document.getElementById('musicLabel').textContent = 'تشغيل الموسيقى';
+    }
+
+    function playHappyBirthdaySong() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        stopMusic();
+        isPlayingMusic = true;
+        document.getElementById('musicIcon').textContent = '🔊';
+        document.getElementById('musicLabel').textContent = 'الموسيقى شغالة';
+
+        const notes = [
+          [261.63, 0.28], [261.63, 0.28], [293.66, 0.55], [261.63, 0.55], [349.23, 0.55], [329.63, 1.0],
+          [261.63, 0.28], [261.63, 0.28], [293.66, 0.55], [261.63, 0.55], [392.00, 0.55], [349.23, 1.0],
+          [261.63, 0.28], [261.63, 0.28], [523.25, 0.55], [440.00, 0.55], [349.23, 0.55], [329.63, 0.55], [293.66, 0.85],
+          [466.16, 0.28], [466.16, 0.28], [440.00, 0.55], [349.23, 0.55], [392.00, 0.55], [349.23, 1.1]
+        ];
+
+        let timeOffset = 0;
+        notes.forEach(([freq, dur]) => {
+          const timer = setTimeout(() => {
+            if (!isPlayingMusic) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.008, audioCtx.currentTime + dur * 0.9);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + dur);
+          }, timeOffset * 1000);
+          melodyTimers.push(timer);
+          timeOffset += dur + 0.05;
+        });
+
+        const endTimer = setTimeout(() => {
+          if (isPlayingMusic) stopMusic();
+        }, (timeOffset + 0.4) * 1000);
+        melodyTimers.push(endTimer);
+      } catch (e) {}
+    }
+
+    // Festive Confetti Burst
+    function launchConfetti(amount) {
+      const canvas = document.getElementById('confettiCanvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const colors = ['#ffb703', '#fb8500', '#fde68a', '#ffffff', '#10b981', '#ef4444'];
+
+      for (let i = 0; i < (amount || 100); i++) {
+        confettiParticles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height * 0.6,
+          w: 7 + Math.random() * 6,
+          h: 10 + Math.random() * 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vy: 2.5 + Math.random() * 3.5,
+          vx: (Math.random() - 0.5) * 2.5,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 8
+        });
+      }
+      if (!confettiFrame) renderConfetti();
+    }
+
+    function renderConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      confettiParticles.forEach(p => {
+        p.y += p.vy;
+        p.x += p.vx;
+        p.angle += p.spin;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.angle * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+
+      confettiParticles = confettiParticles.filter(p => p.y < canvas.height + 30);
+      if (confettiParticles.length > 0) {
+        confettiFrame = requestAnimationFrame(renderConfetti);
+      } else {
+        confettiFrame = null;
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confettiCanvas');
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+  </script>
+</body>
+</html>
