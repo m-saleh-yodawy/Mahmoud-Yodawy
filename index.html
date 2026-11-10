@@ -149,21 +149,22 @@
 
     .cake-photo-topper {
       position: relative;
-      width: 182px;
-      height: 182px;
+      width: 195px;
+      height: 195px;
       border-radius: 50%;
-      padding: 6px;
-      background: conic-gradient(#fffbeb, #fde68a, #ffb703, #fffbeb, #ffb703, #fffbeb);
-      box-shadow: 0 6px 20px rgba(120, 53, 15, 0.6);
+      background: transparent;
       z-index: 15;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     @media (min-width: 400px) {
       .cake-photo-topper {
-        width: 202px;
-        height: 202px;
+        width: 215px;
+        height: 215px;
       }
     }
 
@@ -173,30 +174,32 @@
 
     .cake-photo-topper.playing-voice {
       animation: voicePulse 0.6s ease-in-out infinite alternate;
-      box-shadow: 0 0 0 8px rgba(255, 183, 3, 0.45), 0 0 25px #ffb703;
+      filter: drop-shadow(0 0 16px #fffbeb);
     }
 
     @keyframes voicePulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.06); }
+      100% { transform: scale(1.07); }
     }
 
     .cake-photo-inner {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      overflow: hidden;
+      overflow: visible;
       position: relative;
-      background: #27170c;
-      border: 3.5px solid #ffffff;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cake-photo-inner img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center 28%;
-      transform: scale(1.12);
+      object-fit: contain;
+      object-position: center center;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
     }
 
     .tap-sound-icon {
@@ -486,7 +489,7 @@
               <div class="cake-photo-inner">
                 <img
                   id="mahmoudCakeImg"
-                  src="Mahmoud-Yodawy.jpg"
+                  src="7c77ae19-b242-452e-8c16-908056d3a544.webp"
                   alt="محمود"
                   onerror="handleImageFallback(this)"
                 >
@@ -566,30 +569,42 @@
     let voiceClickCount = 0;
     let toastTimer = null;
 
+    const imageCandidates = [
+      'https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/7c77ae19-b242-452e-8c16-908056d3a544.webp',
+      'Mahmoud-Yodawy.jpg',
+      'https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/Mahmoud-Yodawy.jpg'
+    ];
+
     function playMahmoudAudio(e) {
       if (e) e.stopPropagation();
-      stopMusic();
 
       const photoTopper = document.getElementById('mahmoudPhotoTrigger');
       const voiceEl = document.getElementById('mahmoudVoice');
 
       if (voiceClickCount >= 1) {
         if (voiceEl) {
+          voiceEl.onended = null;
           voiceEl.pause();
           try { voiceEl.currentTime = 0; } catch (err) {}
         }
         if (voiceFallbackAudio) {
+          voiceFallbackAudio.onended = null;
           voiceFallbackAudio.pause();
         }
         photoTopper.classList.remove('playing-voice');
         showEatCakeMessage();
+        if (!isPlayingMusic) playHappyBirthdaySong();
         return;
       }
 
+      stopMusic();
       voiceClickCount++;
       photoTopper.classList.add('playing-voice');
 
-      const onEnded = () => photoTopper.classList.remove('playing-voice');
+      const onEnded = () => {
+        photoTopper.classList.remove('playing-voice');
+        playHappyBirthdaySong();
+      };
 
       if (voiceEl) {
         voiceEl.onended = onEnded;
@@ -667,6 +682,16 @@
       const surpriseSection = document.getElementById('surpriseSection');
       const voiceEl = document.getElementById('mahmoudVoice');
 
+      if (voiceEl) {
+        voiceEl.onended = null;
+        voiceEl.pause();
+        try { voiceEl.currentTime = 0; } catch (e) {}
+      }
+      if (voiceFallbackAudio) {
+        voiceFallbackAudio.onended = null;
+        voiceFallbackAudio.pause();
+      }
+
       stopMusic();
       const songEl = document.getElementById('anghamSong');
       if (songEl) {
@@ -674,14 +699,6 @@
       }
       if (songFallbackAudio) {
         try { songFallbackAudio.currentTime = 0; } catch (e) {}
-      }
-
-      if (voiceEl) {
-        voiceEl.pause();
-        try { voiceEl.currentTime = 0; } catch (e) {}
-      }
-      if (voiceFallbackAudio) {
-        voiceFallbackAudio.pause();
       }
 
       voiceClickCount = 0;
@@ -704,15 +721,14 @@
     }
 
     function handleImageFallback(imgEl) {
-      if (!imgEl.dataset.triedRaw) {
-        imgEl.dataset.triedRaw = 'true';
-        imgEl.src = 'https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/Mahmoud-Yodawy.jpg';
+      const idx = parseInt(imgEl.dataset.fallbackIdx || '0', 10);
+      if (idx < imageCandidates.length) {
+        imgEl.dataset.fallbackIdx = String(idx + 1);
+        imgEl.src = imageCandidates[idx];
         return;
       }
       const svgFallback = `data:image/svg+xml;utf8,` + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-          <rect width="200" height="200" fill="#fffbeb"/>
-          <circle cx="100" cy="100" r="92" fill="#fde68a"/>
           <ellipse cx="100" cy="106" rx="46" ry="52" fill="#f3c69f"/>
           <path d="M54 108 C54 156, 146 156, 146 108 C140 128, 125 138, 100 138 C75 138, 60 128, 54 108 Z" fill="#261e1b"/>
           <rect x="62" y="82" width="32" height="24" rx="8" fill="none" stroke="#374151" stroke-width="3.5"/>
