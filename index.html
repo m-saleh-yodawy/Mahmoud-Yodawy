@@ -317,6 +317,8 @@
   <canvas id="confettiCanvas"></canvas>
 
   <audio id="mahmoudVoice" preload="auto">
+    <source src="audio%20from%20mahmoud.mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/audio%20from%20mahmoud.mp3" type="audio/mpeg">
     <source src="audio%20from%20mahmoud.oga" type="audio/ogg">
     <source src="https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/audio%20from%20mahmoud.oga" type="audio/ogg">
   </audio>
@@ -521,11 +523,15 @@
     function playFallbackVoice(onEnded) {
       try {
         if (!voiceFallbackAudio) {
-          voiceFallbackAudio = new Audio('https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/audio%20from%20mahmoud.oga');
+          voiceFallbackAudio = new Audio('https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/audio%20from%20mahmoud.mp3');
         }
         voiceFallbackAudio.onended = onEnded;
         voiceFallbackAudio.currentTime = 0;
-        voiceFallbackAudio.play().catch(onEnded);
+        voiceFallbackAudio.play().catch(() => {
+          voiceFallbackAudio = new Audio('https://raw.githubusercontent.com/m-saleh-yodawy/Mahmoud-Yodawy/main/audio%20from%20mahmoud.oga');
+          voiceFallbackAudio.onended = onEnded;
+          voiceFallbackAudio.play().catch(onEnded);
+        });
       } catch (err) {
         onEnded();
       }
