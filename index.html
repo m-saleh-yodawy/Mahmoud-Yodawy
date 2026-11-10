@@ -302,6 +302,27 @@
       box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6), inset 0 0 0 3px rgba(212, 155, 53, 0.2);
     }
 
+    .eat-cake-toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      border: 3px solid #fde68a;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .eat-cake-toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -315,6 +336,16 @@
 <body>
 
   <canvas id="confettiCanvas"></canvas>
+
+  <div id="eatCakeModal" class="eat-cake-toast rounded-3xl px-6 py-5 text-center w-[88%] max-w-sm">
+    <div class="text-4xl mb-2">🎂🍴😂</div>
+    <p class="text-lg sm:text-xl font-black leading-snug mb-4">
+      لا اخلص عايزين ناكل التورتة
+    </p>
+    <button onclick="hideEatCakeMessage()" class="bg-amber-400 active:scale-95 text-black font-black text-sm px-6 py-2 rounded-full shadow-md transition">
+      ماشي يلا ناكل! 😋
+    </button>
+  </div>
 
   <audio id="mahmoudVoice" preload="auto">
     <source src="audio%20from%20mahmoud.mp3" type="audio/mpeg">
@@ -390,9 +421,9 @@
 
       <div class="text-center mb-6">
         <div class="mb-9">
-          <button onclick="playMahmoudAudio(event)" class="gift-cta-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm sm:text-base font-black shadow-lg active:scale-95 transition">
-            <span>🔊</span>
-            <span>اضغط على محمود</span>
+          <button id="pressMahmoudBtn" onclick="playMahmoudAudio(event)" class="gift-cta-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm sm:text-base font-black shadow-lg active:scale-95 transition">
+            <span id="pressMahmoudIcon">🔊</span>
+            <span id="pressMahmoudText">اضغط على محمود</span>
             <span>👇</span>
           </button>
           <p class="text-amber-300 font-extrabold text-xs sm:text-sm mt-1.5">
@@ -493,6 +524,8 @@
     let confettiParticles = [];
     let confettiFrame = null;
     let voiceFallbackAudio = null;
+    let voiceClickCount = 0;
+    let toastTimer = null;
 
     function playMahmoudAudio(e) {
       if (e) e.stopPropagation();
@@ -500,6 +533,21 @@
 
       const photoTopper = document.getElementById('mahmoudPhotoTrigger');
       const voiceEl = document.getElementById('mahmoudVoice');
+
+      if (voiceClickCount >= 1) {
+        if (voiceEl) {
+          voiceEl.pause();
+          try { voiceEl.currentTime = 0; } catch (err) {}
+        }
+        if (voiceFallbackAudio) {
+          voiceFallbackAudio.pause();
+        }
+        photoTopper.classList.remove('playing-voice');
+        showEatCakeMessage();
+        return;
+      }
+
+      voiceClickCount++;
       photoTopper.classList.add('playing-voice');
 
       const onEnded = () => photoTopper.classList.remove('playing-voice');
@@ -518,6 +566,27 @@
       } else {
         playFallbackVoice(onEnded);
       }
+    }
+
+    function showEatCakeMessage() {
+      playPopNote(220);
+      const modal = document.getElementById('eatCakeModal');
+      const btnText = document.getElementById('pressMahmoudText');
+      const btnIcon = document.getElementById('pressMahmoudIcon');
+
+      btnIcon.textContent = '🍴';
+      btnText.textContent = 'لا اخلص عايزين ناكل التورتة';
+      modal.classList.add('show');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        hideEatCakeMessage();
+      }, 3500);
+    }
+
+    function hideEatCakeMessage() {
+      const modal = document.getElementById('eatCakeModal');
+      if (modal) modal.classList.remove('show');
     }
 
     function playFallbackVoice(onEnded) {
@@ -566,6 +635,11 @@
       if (voiceFallbackAudio) {
         voiceFallbackAudio.pause();
       }
+
+      voiceClickCount = 0;
+      hideEatCakeMessage();
+      document.getElementById('pressMahmoudIcon').textContent = '🔊';
+      document.getElementById('pressMahmoudText').textContent = 'اضغط على محمود';
       document.getElementById('mahmoudPhotoTrigger').classList.remove('playing-voice');
 
       surpriseSection.classList.remove('visible');
